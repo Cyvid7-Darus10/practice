@@ -20,7 +20,12 @@ export class ServiceResponse<T = null> {
    * @param responseObject - The payload data.
    * @param statusCode - HTTP status code for the response.
    */
-  private constructor(success: boolean, message: string, responseObject: T, statusCode: number) {
+  private constructor(
+    success: boolean,
+    message: string,
+    responseObject: T,
+    statusCode: number
+  ) {
     this.success = success;
     this.message = message;
     this.responseObject = responseObject;
@@ -35,7 +40,11 @@ export class ServiceResponse<T = null> {
    * @param statusCode - HTTP status code (default: 200 OK).
    * @returns A ServiceResponse instance representing success.
    */
-  static success<T>(message: string, responseObject: T, statusCode: number = StatusCodes.OK): ServiceResponse<T> {
+  static success<T>(
+    message: string,
+    responseObject: T,
+    statusCode: number = StatusCodes.OK
+  ): ServiceResponse<T> {
     return new ServiceResponse<T>(true, message, responseObject, statusCode);
   }
 
@@ -47,7 +56,11 @@ export class ServiceResponse<T = null> {
    * @param statusCode - HTTP status code (default: 400 Bad Request).
    * @returns A ServiceResponse instance representing failure.
    */
-  static failure<T>(message: string, responseObject: T, statusCode: number = StatusCodes.BAD_REQUEST): ServiceResponse<T> {
+  static failure<T>(
+    message: string,
+    responseObject: T,
+    statusCode: number = StatusCodes.BAD_REQUEST
+  ): ServiceResponse<T> {
     return new ServiceResponse<T>(false, message, responseObject, statusCode);
   }
 }

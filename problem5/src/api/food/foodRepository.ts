@@ -37,8 +37,11 @@ export class FoodRepository {
     return foods.find((food) => food.id === id) || null;
   }
 
-  async createAsync(foodData: Omit<Food, "id" | "createdAt" | "updatedAt">): Promise<Food> {
-    const newId = foods.length > 0 ? Math.max(...foods.map((food) => food.id)) + 1 : 1;
+  async createAsync(
+    foodData: Omit<Food, "id" | "createdAt" | "updatedAt">
+  ): Promise<Food> {
+    const newId =
+      foods.length > 0 ? Math.max(...foods.map((food) => food.id)) + 1 : 1;
     const newFood: Food = {
       ...foodData,
       id: newId,
@@ -49,7 +52,10 @@ export class FoodRepository {
     return newFood;
   }
 
-  async updateAsync(id: number, updateData: Partial<Omit<Food, "id" | "createdAt" | "updatedAt">>): Promise<Food | null> {
+  async updateAsync(
+    id: number,
+    updateData: Partial<Omit<Food, "id" | "createdAt" | "updatedAt">>
+  ): Promise<Food | null> {
     const index = foods.findIndex((food) => food.id === id);
     if (index === -1) {
       return null;

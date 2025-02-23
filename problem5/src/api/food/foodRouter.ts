@@ -3,7 +3,11 @@ import express, { type Router } from "express";
 import { z } from "zod";
 
 import { createApiResponse } from "@/api-docs/openAPIResponseBuilders";
-import { GetFoodSchema, FoodSchema, CreateFoodSchema } from "@/api/food/foodModel";
+import {
+  GetFoodSchema,
+  FoodSchema,
+  CreateFoodSchema,
+} from "@/api/food/foodModel";
 import { validateRequest } from "@/common/utils/httpHandlers";
 import { foodController } from "./foodController";
 
@@ -57,10 +61,16 @@ foodRegistry.registerPath({
   method: "post",
   path: "/foods",
   tags: ["Food"],
-  request: { body: { content: { "application/json": { schema: CreateFoodSchema } } } },
+  request: {
+    body: { content: { "application/json": { schema: CreateFoodSchema } } },
+  },
   responses: createApiResponse(FoodSchema, "Food created"),
 });
-foodRouter.post("/", validateRequest(CreateFoodSchema), foodController.createFood);
+foodRouter.post(
+  "/",
+  validateRequest(CreateFoodSchema),
+  foodController.createFood
+);
 
 /**
  * PUT /foods/{id} - Update an existing food.
@@ -98,6 +108,13 @@ foodRegistry.registerPath({
   path: "/foods/{id}",
   tags: ["Food"],
   request: { params: GetFoodSchema.shape.params },
-  responses: createApiResponse(z.object({ message: z.string() }), "Food deleted"),
+  responses: createApiResponse(
+    z.object({ message: z.string() }),
+    "Food deleted"
+  ),
 });
-foodRouter.delete("/:id", validateRequest(GetFoodSchema), foodController.deleteFood);
+foodRouter.delete(
+  "/:id",
+  validateRequest(GetFoodSchema),
+  foodController.deleteFood
+);

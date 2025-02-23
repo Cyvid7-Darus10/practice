@@ -36,7 +36,10 @@ export type Ingredient = z.infer<typeof IngredientSchema>;
 export const FoodSchema = z.object({
   id: z.number().openapi({ example: 1 }),
   name: z.string().openapi({ example: "Pizza" }),
-  description: z.string().optional().openapi({ example: "Delicious cheesy pizza" }),
+  description: z
+    .string()
+    .optional()
+    .openapi({ example: "Delicious cheesy pizza" }),
   ingredients: z.array(IngredientSchema).optional(),
   createdAt: z.date().openapi({ example: new Date().toISOString() }),
   updatedAt: z.date().openapi({ example: new Date().toISOString() }),
@@ -58,10 +61,13 @@ export type Food = z.infer<typeof FoodSchema>;
  */
 export const CreateFoodSchema = z.object({
   name: z.string().openapi({ example: "Pizza" }),
-  description: z.string().optional().openapi({ example: "Delicious cheesy pizza" }),
-  ingredients: z.array(
-    z.object({ name: z.string().openapi({ example: "Tomato" }) })
-  ).optional(),
+  description: z
+    .string()
+    .optional()
+    .openapi({ example: "Delicious cheesy pizza" }),
+  ingredients: z
+    .array(z.object({ name: z.string().openapi({ example: "Tomato" }) }))
+    .optional(),
 });
 
 /**
@@ -75,7 +81,8 @@ export const CreateFoodSchema = z.object({
  */
 export const GetFoodSchema = z.object({
   params: z.object({
-    id: z.string()
+    id: z
+      .string()
       .regex(/^\d+$/, "ID must be a number")
       .transform((val) => Number(val)),
   }),
@@ -93,7 +100,8 @@ export const GetFoodSchema = z.object({
  */
 export const UpdateFoodSchema = z.object({
   params: z.object({
-    id: z.string()
+    id: z
+      .string()
       .regex(/^\d+$/, "ID must be a number")
       .transform((val) => Number(val)),
   }),

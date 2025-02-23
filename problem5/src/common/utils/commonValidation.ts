@@ -10,10 +10,11 @@ export const commonValidations = {
    */
   id: z.preprocess(
     (value) => (typeof value === "string" ? Number(value) : value),
-    z.number({
-      required_error: "ID is required",
-      invalid_type_error: "ID must be a numeric value",
-    })
+    z
+      .number({
+        required_error: "ID is required",
+        invalid_type_error: "ID must be a numeric value",
+      })
       .int("ID must be an integer")
       .positive("ID must be a positive number")
   ),
@@ -42,8 +43,7 @@ export const commonValidations = {
    * Validates a date string.
    * The input must be a valid date format.
    */
-  date: z.string().refine(
-    (date) => !isNaN(Date.parse(date)),
-    "Invalid date format"
-  ),
+  date: z
+    .string()
+    .refine((date) => !isNaN(Date.parse(date)), "Invalid date format"),
 };
