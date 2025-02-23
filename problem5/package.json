@@ -29,6 +29,8 @@
     "http-status-codes": "^2.3.0",
     "pino": "^9.4.0",
     "pino-http": "^10.0.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
     "swagger-ui-express": "^5.0.0",
     "zod": "^3.22.4"
   },
@@ -36,6 +38,7 @@
     "@biomejs/biome": "1.9.4",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/sqlite3": "^3.1.11",
     "@types/supertest": "^6.0.2",
     "@types/swagger-ui-express": "^4.1.6",
     "husky": "^9.0.11",
@@ -50,10 +53,16 @@
     "vitest": "^3.0.0"
   },
   "lint-staged": {
-    "*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": ["biome check --apply --no-errors-on-unmatched"]
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": [
+      "biome check --apply --no-errors-on-unmatched"
+    ]
   },
   "tsup": {
-    "entry": ["src", "!src/**/__tests__/**", "!src/**/*.test.*"],
+    "entry": [
+      "src",
+      "!src/**/__tests__/**",
+      "!src/**/*.test.*"
+    ],
     "splitting": false,
     "sourcemap": true,
     "clean": true
