@@ -1,73 +1,104 @@
-# 🚀 Express TypeScript Boilerplate 2024
+# Crude Server - Express TypeScript Implementation
 
-[![Build](https://github.com/edwinhern/express-typescript-2024/actions/workflows/build.yml/badge.svg)](https://github.com/edwinhern/express-typescript-2024/actions/workflows/build.yml)
-[![Test](https://github.com/edwinhern/express-typescript-2024/actions/workflows/test.yml/badge.svg)](https://github.com/edwinhern/express-typescript-2024/actions/workflows/test.yml)
-[![Code Quality](https://github.com/edwinhern/express-typescript-2024/actions/workflows/code-quality.yml/badge.svg)](https://github.com/edwinhern/express-typescript-2024/actions/workflows/code-quality.yml)
-[![Docker Image CI](https://github.com/edwinhern/express-typescript-2024/actions/workflows/docker-image.yml/badge.svg)](https://github.com/edwinhern/express-typescript-2024/actions/workflows/docker-image.yml)
+This repository is the solution for **Problem 5: A Crude Server**. It provides a fully functional backend server built with ExpressJS and TypeScript that implements a complete set of CRUD interfaces, along with a simple database integration for data persistence.
 
-``` code
-Hey There! 🙌 
-🤾 that ⭐️ button if you like this boilerplate. 
-```
+## Task Overview
 
-## 🌟 Introduction
+- **CRUD Interface:**
+  - **Create a Resource:** `POST /api/resources`
+  - **List Resources with Basic Filters:** `GET /api/resources`
+  - **Get Details of a Resource:** `GET /api/resources/:id`
+  - **Update Resource Details:** `PUT /api/resources/:id`
+  - **Delete a Resource:** `DELETE /api/resources/:id`
+- **Database Integration:**  
+  The server connects to a simple database to persist data. The database configuration is managed via environment variables.
+- **TypeScript & ExpressJS:**  
+  The entire application is developed using TypeScript to ensure type safety and maintainability.
 
-Welcome to the Express TypeScript Boilerplate 2024 – a streamlined, efficient, and scalable foundation for building powerful backend services with modern tools and practices in Express.js and TypeScript.
+## Features
 
-## 💡 Motivation
+- **CRUD Endpoints:** All basic operations (Create, Read, Update, Delete) are implemented.
+- **Filtering:** List endpoint supports basic filtering options to retrieve specific subsets of data.
+- **Database Support:** Easily switch between different database engines (SQLite, PostgreSQL, MySQL, etc.) by configuring environment variables.
+- **Environment Configuration:** Managed through a `.env` file for easy setup.
+- **Type Safety:** Full TypeScript support throughout the codebase.
+- **Security & Performance:** Integrated middleware for secure and performant API operations.
 
-This boilerplate aims to:
+## Getting Started
 
-- ✨ Reduce setup time for new projects
-- 📊 Ensure code consistency and quality
-- ⚡  Facilitate rapid development
-- 🛡️ Encourage best practices in security, testing, and performance
+### Prerequisites
 
-## 🚀 Features
+- **Node.js:** Ensure you have Node.js (latest LTS version recommended) installed.
+- **Database:** Set up your preferred database (e.g., SQLite, PostgreSQL, MySQL). Database credentials and connection details should be provided in the environment configuration.
 
-- 📁 Modular Structure: Organized by feature for easy navigation and scalability
-- 💨 Faster Execution with tsx: Rapid TypeScript execution with `tsx` and type checking with `tsc`
-- 🌐 Stable Node Environment: Latest LTS Node version in `.nvmrc`
-- 🔧 Simplified Environment Variables: Managed with Envalid
-- 🔗 Path Aliases: Cleaner code with shortcut imports
-- 🔄 Renovate Integration: Automatic updates for dependencies
-- 🔒 Security: Helmet for HTTP header security and CORS setup
-- 📊 Logging: Efficient logging with `pino-http`
-- 🧪 Comprehensive Testing: Setup with Vitest and Supertest
-- 🔑 Code Quality Assurance: Husky and lint-staged for consistent quality
-- ✅ Unified Code Style: `Biomejs` for consistent coding standards
-- 📃 API Response Standardization: `ServiceResponse` class for consistent API responses
-- 🐳 Docker Support: Ready for containerization and deployment
-- 📝 Input Validation with Zod: Strongly typed request validation using `Zod`
-- 🧩 Swagger UI: Interactive API documentation generated from Zod schemas
+### Installation
 
-## 🛠️ Getting Started
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/your-username/crude-server.git
+   cd crude-server
+   ```
 
-### Video Demo
+2. **Install Dependencies:**
+   ```bash
+   npm ci
+   ```
 
-For a visual guide, watch the [video demo](https://github.com/user-attachments/assets/b1698dac-d582-45a0-8d61-31131732b74e) to see the setup and running of the project.
+### Environment Configuration
 
-### Step-by-Step Guide
+1. **Create Environment File:**
+   Copy the provided `.env.template` to create your `.env` file:
+   ```bash
+   cp .env.template .env
+   ```
 
-#### Step 1: 🚀 Initial Setup
+2. **Configure Environment Variables:**
+   Edit the `.env` file to set your database credentials, server port, and any other necessary configurations:
+   ```ini
+   PORT=3000
+   NODE_ENV=development
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_USER=your_db_user
+   DB_PASS=your_db_password
+   DB_NAME=your_db_name
+   ```
 
-- Clone the repository: `git clone https://github.com/edwinhern/express-typescript-2024.git`
-- Navigate: `cd express-typescript-2024`
-- Install dependencies: `npm ci`
+### Running the Application
 
-#### Step 2: ⚙️ Environment Configuration
+- **Development Mode:**  
+  Launch the server in development mode (with auto-reloading):
+  ```bash
+  npm run dev
+  ```
 
-- Create `.env`: Copy `.env.template` to `.env`
-- Update `.env`: Fill in necessary environment variables
+- **Production Mode:**  
+  Build the project and start the server:
+  ```bash
+  npm run build && npm run start
+  ```
 
-#### Step 3: 🏃‍♂️ Running the Project
+## API Endpoints Overview
 
-- Development Mode: `npm run dev`
-- Building: `npm run build`
-- Production Mode: Set `.env` to `NODE_ENV="production"` then `npm run build && npm run start`
+| Method  | Endpoint              | Description                           |
+|---------|-----------------------|---------------------------------------|
+| POST    | `/api/resources`      | Create a new resource                 |
+| GET     | `/api/resources`      | List resources with optional filters  |
+| GET     | `/api/resources/:id`  | Retrieve details of a specific resource|
+| PUT     | `/api/resources/:id`  | Update resource details               |
+| DELETE  | `/api/resources/:id`  | Delete a resource                     |
 
-## 🤝 Feedback and Contributions
+## Additional Information
 
-We'd love to hear your feedback and suggestions for further improvements. Feel free to contribute and join us in making backend development cleaner and faster!
+- **Database Persistence:**  
+  The server integrates with a simple database. Adjust your connection settings in the `.env` file to suit your preferred database system.
 
-🎉 Happy coding!
+- **Testing:**  
+  Comprehensive tests have been set up to verify endpoint functionality and overall application reliability.
+
+- **Code Quality:**  
+  Linting, formatting, and pre-commit hooks ensure that the codebase maintains high quality and consistency throughout development.
+
+## Feedback and Contributions
+
+This project was developed specifically as a solution to Problem 5: A Crude Server. Your feedback is welcome, and any contributions or suggestions for improvement are greatly appreciated. Please open an issue or submit a pull request if you have ideas or enhancements.
