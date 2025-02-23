@@ -1,26 +1,13 @@
-/**
- * Test Suite: Sum to N Functions
- *
- * This test suite validates the correctness of the three sum-to-n implementations
- * provided in solution.js. It leverages Node.js's built-in 'assert' module to ensure
- * that each implementation returns the expected result for a variety of test cases.
- *
- * Note:
- *  - JavaScript's number type has precision limitations, so these tests only use inputs
- *    that produce results below Number.MAX_SAFE_INTEGER.
- *  - Due to potential call stack limitations, the recursive approach is tested only
- *    with relatively small inputs.
- */
-
-const assert = require("assert");
-const {
-  sumToNIterative,
-  sumToNRecursive,
-  sumToNFormula,
-} = require("./solution");
+import * as assert from "assert";
+import { sumToNIterative, sumToNRecursive, sumToNFormula } from "./solution";
 
 // Define test cases for safe integer arithmetic.
-const testCases = [
+interface TestCase {
+  n: number;
+  expected: number;
+}
+
+const testCases: TestCase[] = [
   { n: 0, expected: 0 },
   { n: 1, expected: 1 },
   { n: 5, expected: 15 },
@@ -37,11 +24,15 @@ const testCases = [
 /**
  * Executes a series of tests for a provided sum function.
  *
- * @param {Function} sumFunction - The function under test.
- * @param {string} functionName - A descriptive name for the function.
- * @param {Array} cases - An array of test cases to run.
+ * @param sumFunction - The function under test.
+ * @param functionName - A descriptive name for the function.
+ * @param cases - An array of test cases to run.
  */
-function runTests(sumFunction, functionName, cases) {
+function runTests(
+  sumFunction: (n: number) => number,
+  functionName: string,
+  cases: TestCase[]
+): void {
   console.log(`\nRunning tests for ${functionName}:`);
 
   cases.forEach(({ n, expected }) => {
@@ -61,15 +52,11 @@ function runTests(sumFunction, functionName, cases) {
 }
 
 // For the recursive approach, limit tests to smaller n values to avoid call stack overflow.
-const recursiveTestCases = testCases.filter(({ n }) => n <= 1000);
+const recursiveTestCases: TestCase[] = testCases.filter(({ n }) => n <= 1000);
 
 // Run tests for each implementation.
 runTests(sumToNIterative, "sumToNIterative (Iterative Approach)", testCases);
-runTests(
-  sumToNRecursive,
-  "sumToNRecursive (Recursive Approach)",
-  recursiveTestCases
-);
+runTests(sumToNRecursive, "sumToNRecursive (Recursive Approach)", recursiveTestCases);
 runTests(sumToNFormula, "sumToNFormula (Mathematical Formula)", testCases);
 
 console.log("\nAll test suites completed successfully.");

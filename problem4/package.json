@@ -1,0 +1,19 @@
+{
+  "name": "problem4",
+  "version": "1.0.0",
+  "description": "This repository is the solution for **Problem 4: Three Ways to Sum to n**. It provides three distinct TypeScript implementations for calculating the summation of all natural numbers from 1 to n, each showcasing a unique approach along with commentary on its time and space complexity.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "ts-node src/solution.test.ts"
+  },
+  "author": "Cyrus Pastelero",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^2.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.4",
+    "ts-node": "^10.9.1"
+  }
+}
