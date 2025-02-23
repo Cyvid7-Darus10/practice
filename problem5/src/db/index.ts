@@ -1,8 +1,14 @@
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
+import { readFile } from "fs/promises";
+import { join } from "path";
 
-// Open a connection to a SQLite database file.
-// You can also use ':memory:' to use an in-memory database.
+/**
+ * Opens a connection to the SQLite database, initializes the schema,
+ * and returns the database instance.
+ *
+ * @returns A promise that resolves to the SQLite database instance.
+ */
 export async function connectDB() {
   // Open the database using the sqlite package wrapper for a better Promise-based API.
   const db = await open({
@@ -10,14 +16,15 @@ export async function connectDB() {
     driver: sqlite3.Database,
   });
 
-  // Optionally, create a sample table if it doesn't exist.
-  await db.exec(`
-    CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT,
-      email TEXT UNIQUE
-    );
-  `);
+  // Read and execute the SQL schema from food.sql
+  try {
+    const schemaPath = join(__dirname, "food.sql");
+    const schema = await readFile(schemaPath, "utf-8");
+    await db.exec(schema);
+    console.log("Database schema initialized successfully.");
+  } catch (error) {
+    console.error("Error initializing database schema:", error);
+  }
 
   console.log("Connected to SQLite database.");
   return db;

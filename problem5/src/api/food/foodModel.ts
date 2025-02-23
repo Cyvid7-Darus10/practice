@@ -1,7 +1,6 @@
 import { extendZodWithOpenApi } from "@asteasolutions/zod-to-openapi";
 import { z } from "zod";
 
-// Extend Zod with OpenAPI capabilities.
 extendZodWithOpenApi(z);
 
 /**
@@ -40,17 +39,23 @@ export const FoodSchema = z.object({
     .string()
     .optional()
     .openapi({ example: "Delicious cheesy pizza" }),
-  ingredients: z.array(IngredientSchema).optional(),
-  createdAt: z.date().openapi({ example: new Date().toISOString() }),
-  updatedAt: z.date().openapi({ example: new Date().toISOString() }),
+  ingredients: z
+    .array(
+      z.object({
+        id: z.number().optional(),
+        name: z.string().openapi({ example: "Tomato" }),
+      })
+    )
+    .optional(),
+  createdAt: z.date().openapi({ example: "2023-01-01T00:00:00.000Z" }),
+  updatedAt: z.date().openapi({ example: "2023-01-01T00:00:00.000Z" }),
 });
 
 export type Food = z.infer<typeof FoodSchema>;
 
 /**
  * Schema for creating a new food item.
- * This schema excludes auto-generated fields (id, createdAt, updatedAt)
- * and is used for POST requests.
+ * Excludes auto-generated fields (id, createdAt, updatedAt).
  *
  * @example
  * {
@@ -60,14 +65,21 @@ export type Food = z.infer<typeof FoodSchema>;
  * }
  */
 export const CreateFoodSchema = z.object({
-  name: z.string().openapi({ example: "Pizza" }),
-  description: z
-    .string()
-    .optional()
-    .openapi({ example: "Delicious cheesy pizza" }),
-  ingredients: z
-    .array(z.object({ name: z.string().openapi({ example: "Tomato" }) }))
-    .optional(),
+  body: z.object({
+    name: z.string().openapi({ example: "Pizza" }),
+    description: z
+      .string()
+      .optional()
+      .openapi({ example: "Delicious cheesy pizza" }),
+    ingredients: z
+      .array(
+        z.object({
+          id: z.number().optional(),
+          name: z.string().openapi({ example: "Orange" }),
+        })
+      )
+      .optional(),
+  }),
 });
 
 /**
@@ -105,5 +117,19 @@ export const UpdateFoodSchema = z.object({
       .regex(/^\d+$/, "ID must be a number")
       .transform((val) => Number(val)),
   }),
-  body: CreateFoodSchema.partial(),
+  body: z.object({
+    name: z.string().openapi({ example: "Pizza" }),
+    description: z
+      .string()
+      .optional()
+      .openapi({ example: "Delicious cheesy pizza" }),
+    ingredients: z
+      .array(
+        z.object({
+          id: z.number().optional(),
+          name: z.string().openapi({ example: "Orange" }),
+        })
+      )
+      .optional(),
+  }),
 });

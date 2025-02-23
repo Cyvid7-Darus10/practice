@@ -17,6 +17,7 @@ export const validateRequest =
       schema.parse({ body: req.body, query: req.query, params: req.params });
       next();
     } catch (err) {
+      console.log("error: ", err);
       const errorMessage = `Invalid input: ${(err as ZodError).errors
         .map((e) => e.message)
         .join(", ")}`;
