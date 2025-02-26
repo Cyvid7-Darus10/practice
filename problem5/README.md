@@ -85,7 +85,7 @@ Below is a diagram (using Mermaid syntax) illustrating the execution flow:
 ```mermaid
 flowchart TD
     A[User performs an action on the website] --> B[Client Application]
-    B --> C[Dispatch API Request (e.g., POST /api/foods)]
+    B --> C[Dispatch API Request: POST /api/foods]
     C --> D[API Gateway / Load Balancer]
     D --> E[Authentication & Authorization Middleware]
     E --> F[Food API Endpoint]
