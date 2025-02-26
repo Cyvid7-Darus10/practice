@@ -8,42 +8,40 @@
 
 ## Table of Contents
 
-1. [Introduction](#introduction)
-2. [Features](#features)
-3. [Architecture & Components](#architecture--components)
-4. [System Design Overview & Requirements](#system-design-overview--requirements)
+1. [Introduction](#1-introduction)
+2. [Features](#2-features)
+3. [Architecture & Components](#3-architecture--components)
+4. [System Design Overview & Requirements](#4-system-design-overview--requirements)
    - [4.1 Fundamental Goal & Top Use Case](#41-fundamental-goal--top-use-case)
    - [4.2 Stakeholders](#42-stakeholders)
    - [4.3 Scope & Out-of-Scope](#43-scope--out-of-scope)
    - [4.4 Top Functional Requirements](#44-top-functional-requirements)
    - [4.5 Top Non-Functional Requirements](#45-top-non-functional-requirements)
    - [4.6 Constraints & Considerations](#46-constraints--considerations)
-5. [Data Model](#data-model)
-6. [API Endpoints](#api-endpoints)
+5. [Data Model](#5-data-model)
+6. [API Endpoints](#6-api-endpoints)
    - [6.1 POST /api/score/update](#61-post-apiscoreupdate)
    - [6.2 GET /api/scoreboard](#62-get-apiscoreboard)
-7. [Live Update Mechanism](#live-update-mechanism)
-8. [Execution Flow Diagram](#execution-flow-diagram)
-9. [Security Considerations](#security-considerations)
+7. [Live Update Mechanism](#7-live-update-mechanism)
+8. [Execution Flow Diagram](#8-execution-flow-diagram)
+9. [Security Considerations](#9-security-considerations)
 
 ---
 
 ## 1. Introduction
 
-The **Scoreboard API Service** module is designed to provide a robust, secure, and scalable backend solution for managing user score updates and delivering real-time leaderboard information. This document serves as a comprehensive guide for backend developers, outlining the architecture, API design, and integration points required to implement and maintain the service.
+The **Scoreboard API Service** module delivers a robust, secure, and scalable backend solution for real-time score management and leaderboard updates. Designed with high performance and reliability in mind, it is an essential component for applications that require immediate feedback on user performance in competitive or interactive settings. This document serves as a comprehensive guide for backend developers, detailing the architecture, API design, and integration strategies needed to implement and maintain the service effectively.
 
-Key aspects of the module include:
+## 2. Features
 
 - **Secure Score Updates:**  
-  Only authorized requests with valid authentication tokens can update user scores, ensuring data integrity and preventing unauthorized modifications.
+  Ensures that only requests authenticated with valid tokens can modify user scores, thereby maintaining data integrity and preventing unauthorized alterations.
 
 - **Real-Time Leaderboard Broadcasts:**  
-  The service employs real-time messaging protocols (such as WebSockets or Server-Sent Events) to instantly push updated scoreboard information to all connected clients, ensuring that users receive immediate feedback on score changes.
+  Leverages advanced real-time messaging protocols (such as WebSockets or Server-Sent Events) to instantly distribute updated leaderboard data to all connected clients, providing users with immediate performance feedback.
 
 - **Scalable Architecture:**  
-  Designed to handle high volumes of concurrent updates, the module supports horizontal scaling and is optimized for low latency, making it suitable for competitive and interactive environments such as online gaming, educational platforms, and sales leaderboards.
-
-This document provides detailed specifications, including data models, API endpoints, and system design requirements, enabling developers to integrate and extend the Scoreboard API Service effectively within their applications.
+  Engineered to support high volumes of concurrent updates, the module is optimized for low latency and horizontal scaling. This makes it ideal for dynamic environments like online gaming, educational platforms, and sales leaderboards.
 
 ## 3. Architecture & Components
 
