@@ -91,9 +91,9 @@ flowchart TD
     E --> F[Food API Endpoint]
     F --> G[Food Service Layer]
     G --> H[Food Repository]
-    H --> I[Database (Food & Ingredient Tables)]
-    G --> J[Real-Time Notification Service (optional)]
-    J --> K[Connected Clients (Live updates)]
+    H --> I["Database (Food and Ingredient Tables)"]
+    G --> J[Real-Time Notification Service -  optional]
+    J --> K[Connected Clients - Live updates]
     F --> L[Return API Response]
 ```
 
