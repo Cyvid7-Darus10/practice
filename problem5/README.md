@@ -1,55 +1,44 @@
-# Crude Server - Express TypeScript Implementation
+# Food API Service - Express TypeScript Implementation
 
-This repository is the solution for **Problem 5: A Crude Server**. It provides a fully functional backend server built with ExpressJS and TypeScript that implements a complete set of CRUD interfaces, along with a simple database integration for data persistence.
+This repository is the solution for the **Food API Service Module**. It provides a fully functional backend server built with ExpressJS and TypeScript that implements a complete set of CRUD interfaces for managing food items and their ingredients, along with simple database integration for data persistence.
 
 ## Task Overview
 
-- **CRUD Interface:**
-  - **Create a Resource:** `POST /api/resources`
-  - **List Resources with Basic Filters:** `GET /api/resources`
-  - **Get Details of a Resource:** `GET /api/resources/:id`
-  - **Update Resource Details:** `PUT /api/resources/:id`
-  - **Delete a Resource:** `DELETE /api/resources/:id`
+- **CRUD Interface for Foods:**
+  - **Create a Food:** `POST /api/foods`
+  - **List Foods with Basic Filters:** `GET /api/foods`
+  - **Get Details of a Food:** `GET /api/foods/:id`
+  - **Update Food Details:** `PUT /api/foods/:id`
+  - **Delete a Food:** `DELETE /api/foods/:id`
 - **Database Integration:**  
-  The server connects to a simple database to persist data. The database configuration is managed via environment variables.
+  The server connects to a SQLite database for easy and local implementation. The database configuration is managed via environment variables.
 - **TypeScript & ExpressJS:**  
   The entire application is developed using TypeScript to ensure type safety and maintainability.
 
 ## Features
 
-- **CRUD Endpoints:** All basic operations (Create, Read, Update, Delete) are implemented.
-- **Filtering:** List endpoint supports basic filtering options to retrieve specific subsets of data.
-- **Database Support:** Easily switch between different database engines (SQLite, PostgreSQL, MySQL, etc.) by configuring environment variables.
+- **CRUD Endpoints:** All basic operations (Create, Read, Update, Delete) for food items are implemented.
+- **Ingredient Management:** Food items can include multiple associated ingredients.
+- **Filtering:** The list endpoint supports basic filtering options to retrieve specific subsets of food data.
+- **Database Support:** Easily switch between different database engines by configuring environment variables (currently using SQLite for local implementation).
 - **Environment Configuration:** Managed through a `.env` file for easy setup.
 - **Type Safety:** Full TypeScript support throughout the codebase.
-- **Security & Performance:** Integrated middleware for secure and performant API operations.
+- **Security & Performance:** Integrated middleware ensures secure and performant API operations.
 
 ## Getting Started
 
 ### Prerequisites
 
 - **Node.js:** Ensure you have Node.js (latest LTS version recommended) installed.
-- **Database:** Set up your preferred database (e.g., SQLite, PostgreSQL, MySQL). Database credentials and connection details should be provided in the environment configuration.
-
-### Installation
-
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/your-username/crude-server.git
-   cd crude-server
-   ```
-
-2. **Install Dependencies:**
-   ```bash
-   npm ci
-   ```
+- **Database:** Set up your preferred database. For local implementation, SQLite is used. Database credentials and connection details should be provided in the environment configuration.
 
 ### Environment Configuration
 
 1. **Create Environment File:**
-   Copy the provided `.env.template` to create your `.env` file:
+   Copy the provided `.env.example` to create your `.env` file:
+
    ```bash
-   cp .env.template .env
+   cp .env.example .env
    ```
 
 2. **Configure Environment Variables:**
@@ -66,13 +55,14 @@ This repository is the solution for **Problem 5: A Crude Server**. It provides a
 
 ### Running the Application
 
-- **Development Mode:**  
+- **Development Mode:**
   Launch the server in development mode (with auto-reloading):
+
   ```bash
   npm run dev
   ```
 
-- **Production Mode:**  
+- **Production Mode:**
   Build the project and start the server:
   ```bash
   npm run build && npm run start
@@ -80,25 +70,57 @@ This repository is the solution for **Problem 5: A Crude Server**. It provides a
 
 ## API Endpoints Overview
 
-| Method  | Endpoint              | Description                           |
-|---------|-----------------------|---------------------------------------|
-| POST    | `/api/resources`      | Create a new resource                 |
-| GET     | `/api/resources`      | List resources with optional filters  |
-| GET     | `/api/resources/:id`  | Retrieve details of a specific resource|
-| PUT     | `/api/resources/:id`  | Update resource details               |
-| DELETE  | `/api/resources/:id`  | Delete a resource                     |
+| Method | Endpoint         | Description                              |
+| ------ | ---------------- | ---------------------------------------- |
+| POST   | `/api/foods`     | Create a new food item                   |
+| GET    | `/api/foods`     | List food items with optional filters    |
+| GET    | `/api/foods/:id` | Retrieve details of a specific food item |
+| PUT    | `/api/foods/:id` | Update details of a food item            |
+| DELETE | `/api/foods/:id` | Delete a food item                       |
+
+## Flow of Execution
+
+Below is a diagram (using Mermaid syntax) illustrating the execution flow:
+
+```mermaid
+flowchart TD
+    A[User performs an action on the website] --> B[Client Application]
+    B --> C[Dispatch API Request (e.g., POST /api/foods)]
+    C --> D[API Gateway / Load Balancer]
+    D --> E[Authentication & Authorization Middleware]
+    E --> F[Food API Endpoint]
+    F --> G[Food Service Layer]
+    G --> H[Food Repository]
+    H --> I[Database (Food & Ingredient Tables)]
+    G --> J[Real-Time Notification Service (optional)]
+    J --> K[Connected Clients (Live updates)]
+    F --> L[Return API Response]
+```
 
 ## Additional Information
 
-- **Database Persistence:**  
+- **Database Persistence:**
   The server integrates with a simple database. Adjust your connection settings in the `.env` file to suit your preferred database system.
 
-- **Testing:**  
+- **Testing:**
   Comprehensive tests have been set up to verify endpoint functionality and overall application reliability.
 
-- **Code Quality:**  
+- **Code Quality:**
   Linting, formatting, and pre-commit hooks ensure that the codebase maintains high quality and consistency throughout development.
 
 ## Feedback and Contributions
 
-This project was developed specifically as a solution to Problem 5: A Crude Server. Your feedback is welcome, and any contributions or suggestions for improvement are greatly appreciated. Please open an issue or submit a pull request if you have ideas or enhancements.
+This project was developed as a solution for the Food API Service module. Your feedback is welcome, and any contributions or suggestions for improvement are greatly appreciated. Please open an issue or submit a pull request if you have ideas or enhancements.
+
+---
+
+### Additional Comments
+
+- **Scalability & Performance:**
+  Consider implementing caching (e.g., with Redis) for high-traffic endpoints and monitoring API performance.
+- **Security:**
+  Implement robust authentication and authorization mechanisms to protect against unauthorized data tampering.
+- **Real-Time Updates:**
+  Future improvements could include integration with WebSockets or Pub/Sub systems for live updates.
+- **Extensibility:**
+  The module can be extended to support advanced filtering, pagination, and additional relationships (e.g., categories or user reviews).
