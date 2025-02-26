@@ -234,11 +234,12 @@ The service uses a JSON schema to represent user scores. The table below summari
 ### 6.1 POST /api/score/update
 
 **Purpose:**  
-Handles incremental score updates when a user performs an action.
+Processes score update requests when a user performs an action, securely updating the user's score and triggering a real-time leaderboard refresh.
 
 **Request Headers:**
 
-- `Authorization: Bearer <token>`
+- `Authorization: Bearer <token>`  
+  Token-based authentication header ensuring the request originates from an authorized source.
 
 **Request Body (JSON):**
 
@@ -249,34 +250,17 @@ Handles incremental score updates when a user performs an action.
 }
 ```
 
-**Field**
+**Request Body Details:**
 
-**Type**
-
-**Required**
-
-**Description**
-
-`userId`
-
-String
-
-Yes
-
-Unique identifier of the user.
-
-`scoreIncrement`
-
-Number
-
-Yes
-
-Value to be added to the user’s current score.
+| **Field**        | **Type** | **Required** | **Description**                               |
+| ---------------- | -------- | ------------ | --------------------------------------------- |
+| `userId`         | String   | Yes          | Unique identifier for the user.               |
+| `scoreIncrement` | Number   | Yes          | The value to add to the user's current score. |
 
 **Response Codes:**
 
 - **200 OK:**  
-  Successful update returns the new score and a confirmation message.
+  The score update was successful. The response returns the updated score along with a success message.
 
   ```json
   {
@@ -287,7 +271,7 @@ Value to be added to the user’s current score.
   ```
 
 - **401 Unauthorized:**  
-  Returned when the token is invalid or missing.
+  The request is rejected due to an invalid or missing authorization token.
 
   ```json
   {
@@ -297,7 +281,7 @@ Value to be added to the user’s current score.
   ```
 
 - **400 Bad Request:**  
-  Returned when required fields are missing or the payload is malformed.
+  The request payload is malformed or missing required fields.
 
   ```json
   {
@@ -307,7 +291,7 @@ Value to be added to the user’s current score.
   ```
 
 - **429 Too Many Requests:**  
-  Returned when rate limits are exceeded.
+  The request rate has exceeded the allowed limit.
 
   ```json
   {
@@ -318,27 +302,27 @@ Value to be added to the user’s current score.
 
 **Processing Steps:**
 
-1.  **Authentication & Authorization:**  
-    Validate the bearer token.
-2.  **Payload Validation:**  
-    Ensure that `userId` and `scoreIncrement` are provided and valid.
-3.  **Score Update:**  
-    Perform an atomic database update to prevent race conditions.
-4.  **Scoreboard Retrieval:**  
-    Fetch the updated top 10 scores.
-5.  **Live Update:**  
-    Push the updated scoreboard to all connected clients using WebSockets or SSE.
+1. **Authentication & Authorization:**  
+   Validate the provided bearer token.
+2. **Payload Validation:**  
+   Confirm that both `userId` and `scoreIncrement` are present and valid.
+3. **Score Update:**  
+   Execute an atomic update in the database to increment the user's score, preventing race conditions.
+4. **Scoreboard Retrieval:**  
+   Query the database to fetch the updated top 10 scores.
+5. **Live Update:**  
+   Broadcast the updated scoreboard to all connected clients using WebSockets or SSE.
 
 ---
 
 ### 6.2 GET /api/scoreboard
 
 **Purpose:**  
-Retrieves the current top 10 scores.
+Retrieves the current top 10 leaderboard entries, sorted in descending order by score.
 
 **Response (200 OK):**
 
-Returns a sorted array of user objects (sorted in descending order by score).
+Returns a JSON array containing user objects with `userId` and `score` fields.
 
 ```json
 [
@@ -354,7 +338,11 @@ Returns a sorted array of user objects (sorted in descending order by score).
 ]
 ```
 
-> **Note:** If fewer than 10 users exist, the endpoint returns all available users. Caching this result is recommended during high-traffic periods to reduce database load.
+> **Note:**  
+> If fewer than 10 users exist, the endpoint returns all available user scores. Caching this result during high-traffic periods is recommended to reduce database load.
+
+````
+
 
 ---
 
@@ -362,7 +350,7 @@ Returns a sorted array of user objects (sorted in descending order by score).
 
 The service uses real-time mechanisms (WebSockets or SSE) to ensure all connected clients receive instant scoreboard updates.
 
-- **Mechanism:**  
+- **Mechanism:**
   After a score update, the server fetches the updated top 10 scores and broadcasts them to clients.
 - **Workflow:**
 
@@ -384,7 +372,7 @@ The service uses real-time mechanisms (WebSockets or SSE) to ensure all connecte
     // ... other top scores
   ]
 }
-```
+````
 
 ---
 
