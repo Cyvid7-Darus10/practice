@@ -8,23 +8,23 @@
 
 ## Table of Contents
 
-1.  **Introduction**
-2.  **Features**
-3.  **Architecture & Components**
-4.  **System Design Overview & Requirements**
-    - 4.1 **Fundamental Goal & Top Use Case**
-    - 4.2 **Stakeholders**
-    - 4.3 **Scope & Out-of-Scope**
-    - 4.4 **Top Functional Requirements**
-    - 4.5 **Top Non-Functional Requirements**
-    - 4.6 **Constraints & Considerations**
-5.  **Data Model**
-6.  **API Endpoints**
-    - 6.1 **POST /api/score/update**
-    - 6.2 **GET /api/scoreboard**
-7.  **Live Update Mechanism**
-8.  **Execution Flow Diagram**
-9.  **Security Considerations**
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Architecture & Components](#architecture--components)
+4. [System Design Overview & Requirements](#system-design-overview--requirements)
+   - [4.1 Fundamental Goal & Top Use Case](#41-fundamental-goal--top-use-case)
+   - [4.2 Stakeholders](#42-stakeholders)
+   - [4.3 Scope & Out-of-Scope](#43-scope--out-of-scope)
+   - [4.4 Top Functional Requirements](#44-top-functional-requirements)
+   - [4.5 Top Non-Functional Requirements](#45-top-non-functional-requirements)
+   - [4.6 Constraints & Considerations](#46-constraints--considerations)
+5. [Data Model](#data-model)
+6. [API Endpoints](#api-endpoints)
+   - [6.1 POST /api/score/update](#61-post-apiscoreupdate)
+   - [6.2 GET /api/scoreboard](#62-get-apiscoreboard)
+7. [Live Update Mechanism](#live-update-mechanism)
+8. [Execution Flow Diagram](#execution-flow-diagram)
+9. [Security Considerations](#security-considerations)
 
 ---
 
