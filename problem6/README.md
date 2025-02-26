@@ -341,9 +341,6 @@ Returns a JSON array containing user objects with `userId` and `score` fields.
 > **Note:**  
 > If fewer than 10 users exist, the endpoint returns all available user scores. Caching this result during high-traffic periods is recommended to reduce database load.
 
-````
-
-
 ---
 
 ## 7. Live Update Mechanism
@@ -372,7 +369,7 @@ The service uses real-time mechanisms (WebSockets or SSE) to ensure all connecte
     // ... other top scores
   ]
 }
-````
+```
 
 ---
 
